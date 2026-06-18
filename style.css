@@ -50,27 +50,76 @@ button:hover {
 }
 
 
+
+
 .job-card {
 
-    background: #eeeeee;
+    background: white;
     padding: 20px;
     margin: 15px auto;
-    width: 60%;
-    border-radius: 10px;
+    width: 70%;
+    border-radius: 12px;
     text-align: left;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
 
 }
 
 
 .job-card h3 {
 
-    margin-top: 0;
+    margin-bottom: 10px;
 
 }
 
+
+.job-card p {
+
+    margin: 8px 0;
+
+}
+#searchInput,
+#filterStatus {
+
+    padding: 12px;
+    margin: 10px;
+    border-radius: 6px;
+    border: 1px solid gray;
+
+}
 
 .delete-btn {
 
     background-color: red;
 
+}
+.status {
+    padding: 5px 10px;
+    border-radius: 15px;
+    background-color: #ddd;
+    font-size: 14px;
+}
+.status {
+    padding: 5px 12px;
+    border-radius: 15px;
+    font-size: 14px;
+}
+
+
+.applied {
+    background-color: lightblue;
+}
+
+
+.interview {
+    background-color: lightyellow;
+}
+
+
+.rejected {
+    background-color: lightcoral;
+}
+
+
+.offer-received {
+    background-color: lightgreen;
 }

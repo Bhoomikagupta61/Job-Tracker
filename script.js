@@ -1,3 +1,5 @@
+const filterStatus = document.getElementById("filterStatus");
+const searchInput = document.getElementById("searchInput");
 const addBtn = document.getElementById("addBtn");
 const applications = document.getElementById("applications");
 
@@ -58,7 +60,7 @@ function displayJobs(){
         card.innerHTML = `
             <h3>${job.title}</h3>
             <p>Company: ${job.company}</p>
-            <p>Status: ${job.status}</p>
+            <p>Status: <span class="status ${job.status.toLowerCase().replace(" ", "-")}">${job.status}</span></p>
             <button class="delete-btn">Delete</button>
         `;
 
@@ -81,3 +83,71 @@ function displayJobs(){
     });
 
 }
+searchInput.addEventListener("input", function(){
+
+    const searchText = searchInput.value.toLowerCase();
+
+    const filteredJobs = jobs.filter(function(job){
+
+        return (
+            job.title.toLowerCase().includes(searchText) ||
+            job.company.toLowerCase().includes(searchText)
+        );
+
+    });
+
+
+    displayFilteredJobs(filteredJobs);
+
+});
+
+
+
+function displayFilteredJobs(filteredJobs){
+
+    applications.innerHTML = "";
+
+
+    filteredJobs.forEach(function(job){
+
+
+        const card = document.createElement("div");
+
+        card.classList.add("job-card");
+
+
+        card.innerHTML = `
+            <h3>${job.title}</h3>
+            <p>Company: ${job.company}</p>
+            <p>Status: <span class="status ${job.status.toLowerCase().replace(" ", "-")}">${job.status}</span></p>
+        `;
+
+
+        applications.appendChild(card);
+
+    });
+
+}
+filterStatus.addEventListener("change", function(){
+
+    const selectedStatus = filterStatus.value;
+
+
+    if(selectedStatus === "All"){
+
+        displayJobs();
+
+    } else {
+
+        const filteredJobs = jobs.filter(function(job){
+
+            return job.status === selectedStatus;
+
+        });
+
+
+        displayFilteredJobs(filteredJobs);
+
+    }
+
+});
