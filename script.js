@@ -4,6 +4,8 @@ const interviewCount = document.getElementById("interviewCount");
 const rejectedCount = document.getElementById("rejectedCount");
 
 const addBtn = document.getElementById("addBtn");
+const updateBtn = document.getElementById("updateBtn");
+
 const applications = document.getElementById("applications");
 const searchInput = document.getElementById("searchInput");
 const filterStatus = document.getElementById("filterStatus");
@@ -11,14 +13,18 @@ const filterStatus = document.getElementById("filterStatus");
 
 let jobs = JSON.parse(localStorage.getItem("jobs")) || [];
 
+let editIndex = null;
 
-// Load existing jobs
+
+
+// Load data
 displayJobs(jobs);
 
 
 
+
 // Add Job
-addBtn.addEventListener("click", function () {
+addBtn.addEventListener("click", function(){
 
 
     const title = document.getElementById("jobTitle").value;
@@ -36,30 +42,61 @@ addBtn.addEventListener("click", function () {
 
 
 
-    const job = {
+    jobs.push({
 
-        title: title,
-        company: company,
-        status: status
+        title,
+        company,
+        status
 
-    };
+    });
 
-
-
-    jobs.push(job);
 
 
     saveJobs();
 
+    displayJobs(jobs);
+
+    clearForm();
+
+
+});
+
+
+
+
+
+// Update Job
+updateBtn.addEventListener("click", function(){
+
+
+    jobs[editIndex] = {
+
+
+        title: document.getElementById("jobTitle").value,
+
+        company: document.getElementById("companyName").value,
+
+        status: document.getElementById("jobStatus").value
+
+
+    };
+
+
+    saveJobs();
 
     displayJobs(jobs);
 
 
+    clearForm();
 
-    document.getElementById("jobTitle").value = "";
-    document.getElementById("companyName").value = "";
+
+    addBtn.style.display = "inline-block";
+
+    updateBtn.style.display = "none";
+
 
 });
+
 
 
 
@@ -78,9 +115,8 @@ function displayJobs(jobList){
 
     if(jobList.length === 0){
 
-        applications.innerHTML = `
-        <p>No applications found</p>
-        `;
+
+        applications.innerHTML = "<p>No applications found</p>";
 
         return;
 
@@ -92,9 +128,7 @@ function displayJobs(jobList){
     jobList.forEach(function(job){
 
 
-
         const index = jobs.indexOf(job);
-
 
 
         const card = document.createElement("div");
@@ -119,6 +153,11 @@ function displayJobs(jobList){
         </p>
 
 
+        <button class="edit-btn">
+        Edit
+        </button>
+
+
         <button class="delete-btn">
         Delete
         </button>
@@ -128,6 +167,30 @@ function displayJobs(jobList){
 
 
 
+        // Edit
+        card.querySelector(".edit-btn")
+        .addEventListener("click", function(){
+
+
+            document.getElementById("jobTitle").value = job.title;
+
+            document.getElementById("companyName").value = job.company;
+
+            document.getElementById("jobStatus").value = job.status;
+
+
+
+            editIndex = index;
+
+
+            addBtn.style.display = "none";
+
+            updateBtn.style.display = "inline-block";
+
+
+        });
+
+        // Delete
         card.querySelector(".delete-btn")
         .addEventListener("click", function(){
 
@@ -145,7 +208,6 @@ function displayJobs(jobList){
 
 
 
-
         applications.appendChild(card);
 
 
@@ -156,12 +218,6 @@ function displayJobs(jobList){
 
 }
 
-
-
-
-
-
-
 // Search
 searchInput.addEventListener("input", function(){
 
@@ -170,8 +226,7 @@ searchInput.addEventListener("input", function(){
 
 
 
-    const filteredJobs = jobs.filter(function(job){
-
+    const filtered = jobs.filter(function(job){
 
 
         return (
@@ -185,129 +240,55 @@ searchInput.addEventListener("input", function(){
 
     });
 
-
-
-    displayJobs(filteredJobs);
+    displayJobs(filtered);
 
 
 
 });
-
-
-
-
-
-
-
-
 // Filter
 filterStatus.addEventListener("change", function(){
 
 
-
-    const selectedStatus = filterStatus.value;
-
+    const selected = filterStatus.value;
 
 
-    if(selectedStatus === "All"){
+
+    if(selected === "All"){
 
 
         displayJobs(jobs);
 
-
         return;
 
     }
+    const filtered = jobs.filter(function(job){
 
 
-
-
-
-    const filteredJobs = jobs.filter(function(job){
-
-
-
-        return job.status === selectedStatus;
-
-
-
+        return job.status === selected;
     });
-
-
-
-
-    displayJobs(filteredJobs);
-
-
-
+    displayJobs(filtered);
 });
 
-
-
-
-
-
-
-// Dashboard Counters
+// Dashboard
 function updateDashboard(){
-
-
-
     totalCount.innerText = jobs.length;
-
-
-
-    appliedCount.innerText = jobs.filter(function(job){
-
-
-        return job.status === "Applied";
-
-
-    }).length;
-
-
-
-
-    interviewCount.innerText = jobs.filter(function(job){
-
-
-        return job.status === "Interview";
-
-
-    }).length;
-
-
-
-
-    rejectedCount.innerText = jobs.filter(function(job){
-
-
-        return job.status === "Rejected";
-
-
-    }).length;
-
-
-
+    appliedCount.innerText =
+    jobs.filter(job => job.status === "Applied").length;
+    interviewCount.innerText =
+    jobs.filter(job => job.status === "Interview").length;
+    rejectedCount.innerText =
+    jobs.filter(job => job.status === "Rejected").length;
 }
-
-
-
-
-
-
-
-// Save Jobs
+// Local Storage
 function saveJobs(){
-
-
     localStorage.setItem(
-
         "jobs",
-
         JSON.stringify(jobs)
-
     );
-
-
+}
+// Clear Form
+function clearForm(){
+    document.getElementById("jobTitle").value = "";
+    document.getElementById("companyName").value = "";
+    editIndex = null;
 }

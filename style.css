@@ -164,3 +164,26 @@ button:hover {
     font-weight: bold;
 
 }
+nav {
+
+    background: navy;
+    color: white;
+    padding: 20px;
+    border-radius: 10px;
+    margin-bottom: 30px;
+
+}
+
+
+nav h1 {
+
+    margin: 0;
+
+}
+
+
+nav p {
+
+    margin-top: 8px;
+
+}
