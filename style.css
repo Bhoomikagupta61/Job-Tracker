@@ -139,3 +139,28 @@ button:hover {
     background-color: lightgreen;
 
 }
+.dashboard {
+
+    display: flex;
+    justify-content: space-around;
+    margin: 30px 0;
+
+}
+
+
+.stat-card {
+
+    background: #eeeeee;
+    padding: 20px;
+    border-radius: 10px;
+    width: 20%;
+
+}
+
+
+.stat-card p {
+
+    font-size: 25px;
+    font-weight: bold;
+
+}
