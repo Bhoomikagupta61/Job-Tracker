@@ -11,24 +11,40 @@ const searchInput = document.getElementById("searchInput");
 const filterStatus = document.getElementById("filterStatus");
 
 
-let jobs = JSON.parse(localStorage.getItem("jobs")) || [];
+let jobs = [];
+
+const API_URL = "http://localhost:3000/jobs";
 
 let editIndex = null;
 
 
 
-// Load data
-displayJobs(jobs);
+// Load jobs when page opens
+getJobs();
 
+
+
+async function getJobs(){
+
+    const response = await fetch(API_URL);
+
+    jobs = await response.json();
+
+    displayJobs(jobs);
+
+}
 
 
 
 // Add Job
-addBtn.addEventListener("click", function(){
+
+addBtn.addEventListener("click", async function(){
 
 
     const title = document.getElementById("jobTitle").value;
+
     const company = document.getElementById("companyName").value;
+
     const status = document.getElementById("jobStatus").value;
 
 
@@ -36,66 +52,102 @@ addBtn.addEventListener("click", function(){
     if(title === "" || company === ""){
 
         alert("Please fill all fields");
+
         return;
 
     }
 
 
 
-    jobs.push({
+    await fetch(API_URL, {
 
-        title,
-        company,
-        status
+        method:"POST",
+
+        headers:{
+
+            "Content-Type":"application/json"
+
+        },
+
+        body: JSON.stringify({
+
+            title,
+
+            company,
+
+            status
+
+        })
 
     });
 
 
 
-    saveJobs();
-
-    displayJobs(jobs);
+    getJobs();
 
     clearForm();
 
 
 });
+
+
 
 
 
 
 
 // Update Job
-updateBtn.addEventListener("click", function(){
+
+updateBtn.addEventListener("click", async function(){
 
 
-    jobs[editIndex] = {
+    const job = jobs[editIndex];
 
 
-        title: document.getElementById("jobTitle").value,
-
-        company: document.getElementById("companyName").value,
-
-        status: document.getElementById("jobStatus").value
+    await fetch(`${API_URL}/${job.id}`, {
 
 
-    };
+        method:"PUT",
 
 
-    saveJobs();
+        headers:{
 
-    displayJobs(jobs);
+            "Content-Type":"application/json"
+
+        },
+
+
+        body: JSON.stringify({
+
+            title: document.getElementById("jobTitle").value,
+
+            company: document.getElementById("companyName").value,
+
+            status: document.getElementById("jobStatus").value
+
+        })
+
+
+    });
+
+
+
+    getJobs();
 
 
     clearForm();
 
 
-    addBtn.style.display = "inline-block";
+    addBtn.style.display="inline-block";
 
-    updateBtn.style.display = "none";
+    updateBtn.style.display="none";
+
 
 
 });
+
+
+
 
 
 
@@ -103,10 +155,12 @@ updateBtn.addEventListener("click", function(){
 
 
 // Display Jobs
+
 function displayJobs(jobList){
 
 
-    applications.innerHTML = "";
+
+    applications.innerHTML="";
 
 
     updateDashboard();
@@ -116,9 +170,10 @@ function displayJobs(jobList){
     if(jobList.length === 0){
 
 
-        applications.innerHTML = "<p>No applications found</p>";
+        applications.innerHTML="<p>No applications found</p>";
 
         return;
+
 
     }
 
@@ -131,80 +186,115 @@ function displayJobs(jobList){
         const index = jobs.indexOf(job);
 
 
-        const card = document.createElement("div");
+
+        const card=document.createElement("div");
 
 
-        card.className = "job-card";
+        card.className="job-card";
 
 
 
         card.innerHTML = `
 
+
         <h3>${job.title}</h3>
+
 
         <p>Company: ${job.company}</p>
 
 
         <p>
+
         Status:
-        <span class="status ${job.status.toLowerCase().replace(" ","-")}">
+
+        <span class="status">
+
         ${job.status}
+
         </span>
+
         </p>
 
 
+
         <button class="edit-btn">
+
         Edit
+
         </button>
+
 
 
         <button class="delete-btn">
+
         Delete
+
         </button>
+
 
         `;
 
 
-
-
         // Edit
+
+
         card.querySelector(".edit-btn")
-        .addEventListener("click", function(){
+
+        .addEventListener("click",function(){
+
 
 
             document.getElementById("jobTitle").value = job.title;
 
+
             document.getElementById("companyName").value = job.company;
+
 
             document.getElementById("jobStatus").value = job.status;
 
 
 
-            editIndex = index;
+            editIndex=index;
 
 
-            addBtn.style.display = "none";
 
-            updateBtn.style.display = "inline-block";
+            addBtn.style.display="none";
+
+
+            updateBtn.style.display="inline-block";
+
 
 
         });
+
 
         // Delete
+
+
         card.querySelector(".delete-btn")
-        .addEventListener("click", function(){
+
+        .addEventListener("click", async function(){
 
 
-            jobs.splice(index,1);
+
+            await fetch(`${API_URL}/${job.id}`,{
 
 
-            saveJobs();
+                method:"DELETE"
 
 
-            displayJobs(jobs);
+            });
+
+
+
+            getJobs();
+
 
 
         });
+
+
+
 
 
 
@@ -218,11 +308,15 @@ function displayJobs(jobList){
 
 }
 
+
 // Search
-searchInput.addEventListener("input", function(){
+
+searchInput.addEventListener("input",function(){
+
 
 
     const text = searchInput.value.toLowerCase();
+
 
 
 
@@ -240,16 +334,31 @@ searchInput.addEventListener("input", function(){
 
     });
 
+
+
     displayJobs(filtered);
 
 
 
 });
+
+
+
+
+
+
+
+
+
 // Filter
-filterStatus.addEventListener("change", function(){
+
+
+filterStatus.addEventListener("change",function(){
+
 
 
     const selected = filterStatus.value;
+
 
 
 
@@ -260,35 +369,80 @@ filterStatus.addEventListener("change", function(){
 
         return;
 
+
     }
+
+
+
+
+
     const filtered = jobs.filter(function(job){
 
 
         return job.status === selected;
+
+
     });
+
+
+
     displayJobs(filtered);
+
+
+
 });
 
+
+
+
+
+
+
+
+
 // Dashboard
+
+
 function updateDashboard(){
+
+
+
     totalCount.innerText = jobs.length;
+
+
+
     appliedCount.innerText =
+
     jobs.filter(job => job.status === "Applied").length;
+
+
+
     interviewCount.innerText =
+
     jobs.filter(job => job.status === "Interview").length;
+
+
+
     rejectedCount.innerText =
+
     jobs.filter(job => job.status === "Rejected").length;
+
+
+
 }
-// Local Storage
-function saveJobs(){
-    localStorage.setItem(
-        "jobs",
-        JSON.stringify(jobs)
-    );
-}
-// Clear Form
+
+
+
 function clearForm(){
-    document.getElementById("jobTitle").value = "";
-    document.getElementById("companyName").value = "";
-    editIndex = null;
+
+
+    document.getElementById("jobTitle").value="";
+
+
+    document.getElementById("companyName").value="";
+
+
+    editIndex=null;
+
+
 }
