@@ -1,40 +1,42 @@
-const filterStatus = document.getElementById("filterStatus");
-const searchInput = document.getElementById("searchInput");
 const addBtn = document.getElementById("addBtn");
 const applications = document.getElementById("applications");
+const searchInput = document.getElementById("searchInput");
+const filterStatus = document.getElementById("filterStatus");
+
 
 let jobs = JSON.parse(localStorage.getItem("jobs")) || [];
 
-displayJobs();
+
+// Initial display
+displayJobs(jobs);
 
 
+// Add application
 addBtn.addEventListener("click", function () {
 
-    const jobTitle = document.getElementById("jobTitle").value;
-    const companyName = document.getElementById("companyName").value;
-    const jobStatus = document.getElementById("jobStatus").value;
+    const title = document.getElementById("jobTitle").value;
+    const company = document.getElementById("companyName").value;
+    const status = document.getElementById("jobStatus").value;
 
 
-    if(jobTitle === "" || companyName === "") {
+    if (title === "" || company === "") {
         alert("Please fill all fields");
         return;
     }
 
 
     const job = {
-        title: jobTitle,
-        company: companyName,
-        status: jobStatus
+        title,
+        company,
+        status
     };
 
 
     jobs.push(job);
 
+    saveJobs();
 
-    localStorage.setItem("jobs", JSON.stringify(jobs));
-
-
-    displayJobs();
+    displayJobs(jobs);
 
 
     document.getElementById("jobTitle").value = "";
@@ -44,110 +46,136 @@ addBtn.addEventListener("click", function () {
 
 
 
-function displayJobs(){
+// Display jobs
+function displayJobs(jobList) {
+
 
     applications.innerHTML = "";
 
 
-    jobs.forEach(function(job, index){
+    jobList.forEach(function(job) {
+
+
+        const index = jobs.indexOf(job);
 
 
         const card = document.createElement("div");
 
-        card.classList.add("job-card");
+        card.className = "job-card";
 
 
         card.innerHTML = `
+
             <h3>${job.title}</h3>
+
             <p>Company: ${job.company}</p>
-            <p>Status: <span class="status ${job.status.toLowerCase().replace(" ", "-")}">${job.status}</span></p>
-            <button class="delete-btn">Delete</button>
+
+            <p>
+                Status:
+                <span class="status ${job.status.toLowerCase().replace(" ","-")}">
+                ${job.status}
+                </span>
+            </p>
+
+            <button class="delete-btn">
+                Delete
+            </button>
+
         `;
 
 
-        applications.appendChild(card);
 
-
-
-        card.querySelector(".delete-btn").addEventListener("click", function(){
+        card.querySelector(".delete-btn")
+        .addEventListener("click", function(){
 
             jobs.splice(index,1);
 
-            localStorage.setItem("jobs", JSON.stringify(jobs));
+            saveJobs();
 
-            displayJobs();
+            displayJobs(jobs);
 
         });
 
-
-    });
-
-}
-searchInput.addEventListener("input", function(){
-
-    const searchText = searchInput.value.toLowerCase();
-
-    const filteredJobs = jobs.filter(function(job){
-
-        return (
-            job.title.toLowerCase().includes(searchText) ||
-            job.company.toLowerCase().includes(searchText)
-        );
-
-    });
-
-
-    displayFilteredJobs(filteredJobs);
-
-});
-
-
-
-function displayFilteredJobs(filteredJobs){
-
-    applications.innerHTML = "";
-
-
-    filteredJobs.forEach(function(job){
-
-
-        const card = document.createElement("div");
-
-        card.classList.add("job-card");
-
-
-        card.innerHTML = `
-            <h3>${job.title}</h3>
-            <p>Company: ${job.company}</p>
-            <p>Status: <span class="status ${job.status.toLowerCase().replace(" ", "-")}">${job.status}</span></p>
-        `;
 
 
         applications.appendChild(card);
 
+
     });
 
 }
+
+
+
+// Search
+searchInput.addEventListener("input", function(){
+
+
+    const text = searchInput.value.toLowerCase();
+
+
+    const filtered = jobs.filter(function(job){
+
+
+        return (
+
+            job.title.toLowerCase().includes(text) ||
+
+            job.company.toLowerCase().includes(text)
+
+        );
+
+
+    });
+
+
+    displayJobs(filtered);
+
+
+});
+
+
+
+
+// Filter
 filterStatus.addEventListener("change", function(){
 
-    const selectedStatus = filterStatus.value;
+
+    const selected = filterStatus.value;
 
 
-    if(selectedStatus === "All"){
+    if(selected === "All"){
 
-        displayJobs();
+        displayJobs(jobs);
 
-    } else {
-
-        const filteredJobs = jobs.filter(function(job){
-
-            return job.status === selectedStatus;
-
-        });
-
-
-        displayFilteredJobs(filteredJobs);
+        return;
 
     }
 
+
+    const filtered = jobs.filter(function(job){
+
+
+        return job.status === selected;
+
+
+    });
+
+
+    displayJobs(filtered);
+
+
 });
+
+
+
+
+// Save to LocalStorage
+function saveJobs(){
+
+    localStorage.setItem(
+        "jobs",
+        JSON.stringify(jobs)
+    );
+
+}
