@@ -1,40 +1,76 @@
-
 body {
     background-color: #f4f4f4;
     font-family: Arial, sans-serif;
 }
 
+
 .container {
-    width: 80%;
-    margin: 30px auto;
+    width: 70%;
+    margin: 40px auto;
+    background: white;
+    padding: 30px;
+    text-align: center;
+    border-radius: 12px;
 }
 
-h1 {
-    text-align: center;
+
+.form-container input,
+.form-container select {
+
+    padding: 12px;
+    margin: 8px;
+    width: 200px;
+
 }
+
+
+button {
+
+    padding: 12px 20px;
+    border: none;
+    background-color: navy;
+    color: white;
+    border-radius: 5px;
+    cursor: pointer;
+
+}
+
+
+button:hover {
+
+    opacity: 0.8;
+
+}
+
+
+#applications {
+
+    margin-top: 30px;
+
+}
+
 
 .job-card {
-    background-color: white;
-    padding: 15px;
-    margin-top: 15px;
-    border-radius: 8px;
-}
-.form-container {
-    background-color: white;
+
+    background: #eeeeee;
     padding: 20px;
-    border-radius: 8px;
-    margin-bottom: 20px;
+    margin: 15px auto;
+    width: 60%;
+    border-radius: 10px;
+    text-align: left;
+
 }
 
-input,
-select,
-button {
-    width: 100%;
-    padding: 10px;
-    margin-top: 10px;
-    box-sizing: border-box;
+
+.job-card h3 {
+
+    margin-top: 0;
+
 }
 
-button {
-    cursor: pointer;
+
+.delete-btn {
+
+    background-color: red;
+
 }

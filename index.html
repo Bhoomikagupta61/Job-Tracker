@@ -1,53 +1,53 @@
 <!DOCTYPE html>
 <html>
+
 <head>
     <title>Job Application Tracker</title>
     <link rel="stylesheet" href="style.css">
 </head>
+
 <body>
 
-    <div class="container">
+<div class="container">
 
-        <h1>Job Application Tracker</h1>
+    <h1>Job Application Tracker</h1>
 
-        <div class="form-container">
-            <input type="text" id="jobTitle" placeholder="Job Title">
+    <p>Track your job applications easily</p>
 
-            <input type="text" id="companyName" placeholder="Company Name">
 
-            <select id="jobStatus">
-                <option>Applied</option>
-                <option>Interview</option>
-                <option>Rejected</option>
-                <option>Offer Received</option>
-            </select>
+    <div class="form-container">
 
-            <button id="addBtn">Add Application</button>
-        </div>
+        <input type="text" id="jobTitle" placeholder="Job Title">
 
-        <h2>Applications</h2>
+        <input type="text" id="companyName" placeholder="Company Name">
 
-        <div id="applications">
 
-            <div class="job-card">
-                <h3>Frontend Developer</h3>
-                <p>Company: Google</p>
-                <p>Status: Applied</p>
-                <button class="delete-btn">Delete</button>
-            </div>
+        <select id="jobStatus">
+            <option>Applied</option>
+            <option>Interview</option>
+            <option>Rejected</option>
+            <option>Offer Received</option>
+        </select>
 
-            <div class="job-card">
-                <h3>Backend Developer</h3>
-                <p>Company: Microsoft</p>
-                <p>Status: Interview Scheduled</p>
-                <button class="delete-btn">Delete</button>
-            </div>
 
-        </div>
+        <button id="addBtn">Add Application</button>
 
     </div>
 
-    <script src="script.js"></script>
+
+    <h2>Applications</h2>
+
+
+    <div id="applications">
+
+    </div>
+
+
+</div>
+
+
+<script src="script.js"></script>
 
 </body>
+
 </html>
