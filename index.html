@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html>
-
 <head>
     <title>Job Application Tracker</title>
     <link rel="stylesheet" href="style.css">
@@ -12,50 +11,36 @@
 
     <h1>Job Application Tracker</h1>
 
-    <p>Track your job applications easily</p>
+    <div class="form">
 
+        <input type="text" placeholder="Company Name">
 
-    <div class="form-container">
+        <input type="text" placeholder="Job Role">
 
-        <input type="text" id="jobTitle" placeholder="Job Title">
-
-        <input type="text" id="companyName" placeholder="Company Name">
-
-
-        <select id="jobStatus">
+        <select>
             <option>Applied</option>
             <option>Interview</option>
             <option>Rejected</option>
-            <option>Offer Received</option>
+            <option>Selected</option>
         </select>
 
-
-        <button id="addBtn">Add Application</button>
+        <button>Add Application</button>
 
     </div>
 
-<h2>Applications</h2>
 
-<input type="text" id="searchInput" placeholder="Search jobs...">
-<select id="filterStatus">
+    <h2>My Applications</h2>
 
-    <option value="All">All</option>
-    <option value="Applied">Applied</option>
-    <option value="Interview">Interview</option>
-    <option value="Rejected">Rejected</option>
-    <option value="Offer Received">Offer Received</option>
+    <div class="card">
 
-</select>
+        <h3>Google</h3>
+        <p>Frontend Developer</p>
+        <p>Status: Applied</p>
 
-<div id="applications">
     </div>
 
 
 </div>
 
-
-<script src="script.js"></script>
-
 </body>
-
 </html>

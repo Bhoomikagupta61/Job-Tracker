@@ -1,5 +1,5 @@
 body {
-    background-color: #f4f4f4;
+    background-color: #f2f2f2;
     font-family: Arial, sans-serif;
 }
 
@@ -9,117 +9,39 @@ body {
     margin: 40px auto;
     background: white;
     padding: 30px;
-    text-align: center;
-    border-radius: 12px;
+    border-radius: 10px;
 }
 
 
-.form-container input,
-.form-container select {
+h1 {
+    text-align: center;
+}
 
-    padding: 12px;
-    margin: 8px;
-    width: 200px;
 
+.form {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 30px;
+}
+
+
+input, select {
+    padding: 10px;
 }
 
 
 button {
-
-    padding: 12px 20px;
-    border: none;
     background-color: navy;
     color: white;
-    border-radius: 5px;
-    cursor: pointer;
-
+    border: none;
+    padding: 10px 15px;
 }
 
 
-button:hover {
+.card {
 
-    opacity: 0.8;
+    background: #eeeeee;
+    padding: 15px;
+    border-radius: 8px;
 
-}
-
-
-#applications {
-
-    margin-top: 30px;
-
-}
-
-
-
-
-.job-card {
-
-    background: white;
-    padding: 20px;
-    margin: 15px auto;
-    width: 70%;
-    border-radius: 12px;
-    text-align: left;
-    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
-
-}
-
-
-.job-card h3 {
-
-    margin-bottom: 10px;
-
-}
-
-
-.job-card p {
-
-    margin: 8px 0;
-
-}
-#searchInput,
-#filterStatus {
-
-    padding: 12px;
-    margin: 10px;
-    border-radius: 6px;
-    border: 1px solid gray;
-
-}
-
-.delete-btn {
-
-    background-color: red;
-
-}
-.status {
-    padding: 5px 10px;
-    border-radius: 15px;
-    background-color: #ddd;
-    font-size: 14px;
-}
-.status {
-    padding: 5px 12px;
-    border-radius: 15px;
-    font-size: 14px;
-}
-
-
-.applied {
-    background-color: lightblue;
-}
-
-
-.interview {
-    background-color: lightyellow;
-}
-
-
-.rejected {
-    background-color: lightcoral;
-}
-
-
-.offer-received {
-    background-color: lightgreen;
 }
