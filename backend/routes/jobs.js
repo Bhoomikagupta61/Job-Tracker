@@ -1,33 +1,26 @@
 const express = require("express");
-
 const router = express.Router();
 
 let jobs = [];
-
 
 // GET all jobs
 router.get("/", (req, res) => {
     res.json(jobs);
 });
 
-
 // POST new job
 router.post("/", (req, res) => {
-
     const job = {
         id: Date.now(),
         ...req.body
     };
 
     jobs.push(job);
-
     res.json(job);
 });
 
-
 // UPDATE job
 router.put("/:id", (req, res) => {
-
     const id = Number(req.params.id);
 
     jobs = jobs.map(job =>
@@ -39,10 +32,8 @@ router.put("/:id", (req, res) => {
     });
 });
 
-
 // DELETE job
 router.delete("/:id", (req, res) => {
-
     const id = Number(req.params.id);
 
     jobs = jobs.filter(job => job.id !== id);
@@ -50,8 +41,6 @@ router.delete("/:id", (req, res) => {
     res.json({
         message: "Job deleted"
     });
-
 });
-
 
 module.exports = router;
