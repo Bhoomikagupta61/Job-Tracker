@@ -10,7 +10,7 @@ const applications = document.getElementById("applications");
 const searchInput = document.getElementById("searchInput");
 const filterStatus = document.getElementById("filterStatus");
 
-const API_URL = "http://localhost:3000/jobs";
+const API_URL = "https://job-tracker-api-g89f.onrender.com/jobs";
 
 let jobs = [];
 let editIndex = null;
