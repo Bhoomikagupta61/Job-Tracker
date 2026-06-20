@@ -1,46 +1,81 @@
 const express = require("express");
 const router = express.Router();
 
-let jobs = [];
+const Job = require("../models/Job");
 
 // GET all jobs
-router.get("/", (req, res) => {
-    res.json(jobs);
+router.get("/", async (req, res) => {
+    try {
+        const jobs = await Job.find();
+        res.json(jobs);
+    } catch (error) {
+        res.status(500).json({
+            message: error.message
+        });
+    }
 });
 
 // POST new job
-router.post("/", (req, res) => {
-    const job = {
-        id: Date.now(),
-        ...req.body
-    };
+router.post("/", async (req, res) => {
+    console.log(req.body);
+    try {
+        const job = new Job({
+            title: req.body.title,
+            company: req.body.company,
+            status: req.body.status
+        });
 
-    jobs.push(job);
-    res.json(job);
+        const savedJob = await job.save();
+
+        res.status(201).json(savedJob);
+
+    } catch (error) {
+        res.status(400).json({
+            message: error.message
+        });
+    }
 });
 
 // UPDATE job
-router.put("/:id", (req, res) => {
-    const id = Number(req.params.id);
+router.put("/:id", async (req, res) => {
+    try {
 
-    jobs = jobs.map(job =>
-        job.id === id ? { ...job, ...req.body } : job
-    );
+        const updatedJob = await Job.findByIdAndUpdate(
+            req.params.id,
+            {
+                title: req.body.title,
+                company: req.body.company,
+                status: req.body.status
+            },
+            {
+                new: true
+            }
+        );
 
-    res.json({
-        message: "Job updated"
-    });
+        res.json(updatedJob);
+
+    } catch (error) {
+        res.status(400).json({
+            message: error.message
+        });
+    }
 });
 
 // DELETE job
-router.delete("/:id", (req, res) => {
-    const id = Number(req.params.id);
+router.delete("/:id", async (req, res) => {
+    try {
 
-    jobs = jobs.filter(job => job.id !== id);
+        await Job.findByIdAndDelete(req.params.id);
 
-    res.json({
-        message: "Job deleted"
-    });
+        res.json({
+            message: "Job deleted successfully"
+        });
+
+    } catch (error) {
+        res.status(500).json({
+            message: error.message
+        });
+    }
 });
 
 module.exports = router;
