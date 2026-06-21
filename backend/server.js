@@ -15,8 +15,9 @@ app.use(express.json());
 mongoose.connect(process.env.MONGO_URI)
 .then(() => console.log("MongoDB Connected ✅"))
 .catch((err) => console.log("MongoDB Error:", err));
+
 // Routes
-app.use("/jobs", jobsRoute);
+app.use("/api/jobs", jobsRoute);
 
 // Test Route
 app.get("/", (req, res) => {
