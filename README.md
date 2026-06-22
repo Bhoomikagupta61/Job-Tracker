@@ -1,98 +1,128 @@
 # Job Application Tracker
 
-A full-stack web application that helps users track and manage job applications efficiently.
+A full-stack web application that helps users organize, track, and manage job applications efficiently. The application allows users to add, update, search, filter, and delete job applications while storing data securely in MongoDB Atlas.
+
+## Live Demo
+
+**Frontend:** https://charming-brigadeiros-917b71.netlify.app
+
+**Backend API:** https://job-tracker-api-g89f.onrender.com
 
 ## Features
 
-- Add new job applications
-- Edit existing applications
-- Delete applications
-- Search applications
-- Filter by application status
-- Dashboard statistics
-- Persistent storage using MongoDB Atlas
-- Responsive user interface
+* Add new job applications
+* Edit existing applications
+* Delete applications
+* Search applications by title or company
+* Filter applications by status
+* Dashboard statistics
+* Persistent cloud database storage
+* Responsive and user-friendly interface
 
 ## Tech Stack
 
 ### Frontend
-- HTML
-- CSS
-- JavaScript
+
+* HTML5
+* CSS3
+* JavaScript (ES6)
 
 ### Backend
-- Node.js
-- Express.js
+
+* Node.js
+* Express.js
 
 ### Database
-- MongoDB Atlas
-- Mongoose
+
+* MongoDB Atlas
+* Mongoose
 
 ### Deployment
-- Netlify (Frontend)
-- Render (Backend)
 
-## Project Structure
-
-```
-Job-Tracker/
-├── backend/
-├── index.html
-├── style.css
-├── script.js
-└── README.md
-```
+* Netlify (Frontend)
+* Render (Backend)
 
 ## API Endpoints
 
 ### Get All Jobs
 
-GET
-
-```
-/api/jobs
-```
+GET `/api/jobs`
 
 ### Create Job
 
-POST
-
-```
-/api/jobs
-```
+POST `/api/jobs`
 
 ### Update Job
 
-PUT
-
-```
-/api/jobs/:id
-```
+PUT `/api/jobs/:id`
 
 ### Delete Job
 
-DELETE
+DELETE `/api/jobs/:id`
 
+## Project Structure
+
+```text
+Job-Tracker/
+│
+├── backend/
+│   ├── models/
+│   ├── routes/
+│   ├── server.js
+│   └── package.json
+│
+├── index.html
+├── style.css
+├── script.js
+├── README.md
+└── .gitignore
 ```
-/api/jobs/:id
+
+## Installation
+
+### Clone the Repository
+
+```bash
+git clone https://github.com/Bhoomikagupta61/Job-Tracker.git
 ```
 
-## Live Demo
+### Install Backend Dependencies
 
-Frontend:
-[Netlify URL]
+```bash
+cd backend
+npm install
+```
 
-Backend:
-[Render URL]
+### Configure Environment Variables
+
+Create a `.env` file inside the backend folder:
+
+```env
+MONGO_URI=your_mongodb_connection_string
+PORT=5000
+```
+
+### Start the Backend Server
+
+```bash
+npm run dev
+```
+
+### Open Frontend
+
+Open `index.html` in your browser or deploy using Netlify.
 
 ## Future Improvements
 
-- User Authentication
-- Notes for Applications
-- Interview Tracking
-- Analytics Dashboard
-- Resume Upload Support
+* User Authentication
+* Interview Tracking
+* Notes Section
+* Analytics Dashboard
+* Resume Upload Feature
+* Email Notifications
 
 ## Author
 
-Bhoomika
+**Bhoomika**
+
+GitHub: https://github.com/Bhoomikagupta61
