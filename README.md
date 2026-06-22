@@ -126,3 +126,17 @@ Open `index.html` in your browser or deploy using Netlify.
 **Bhoomika**
 
 GitHub: https://github.com/Bhoomikagupta61
+
+## Screenshots
+
+### Dashboard
+
+![Dashboard](screenshots/Dashboard.png)
+
+### Job List
+
+![Job List](screenshots/job-list.png)
+
+### Search & Filter
+
+![Search Filter](screenshots/search-filter.png)
