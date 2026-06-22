@@ -1,39 +1,98 @@
 # Job Application Tracker
 
-A simple web application to track job applications, interviews, and application status.
+A full-stack web application that helps users track and manage job applications efficiently.
 
 ## Features
 
-- Add job applications
+- Add new job applications
+- Edit existing applications
 - Delete applications
-- Search jobs by company name or role
-- Filter applications by status
-- Status badges
-- Data saved using Local Storage
+- Search applications
+- Filter by application status
+- Dashboard statistics
+- Persistent storage using MongoDB Atlas
+- Responsive user interface
 
-## Technologies Used
+## Tech Stack
 
+### Frontend
 - HTML
 - CSS
 - JavaScript
 
+### Backend
+- Node.js
+- Express.js
+
+### Database
+- MongoDB Atlas
+- Mongoose
+
+### Deployment
+- Netlify (Frontend)
+- Render (Backend)
+
 ## Project Structure
-Job-Tracker
-│
+
+```
+Job-Tracker/
+├── backend/
 ├── index.html
 ├── style.css
 ├── script.js
-└── images
+└── README.md
+```
 
+## API Endpoints
 
-## How to Run
+### Get All Jobs
 
-1. Clone this repository
-2. Open `index.html` in your browser
+GET
+
+```
+/api/jobs
+```
+
+### Create Job
+
+POST
+
+```
+/api/jobs
+```
+
+### Update Job
+
+PUT
+
+```
+/api/jobs/:id
+```
+
+### Delete Job
+
+DELETE
+
+```
+/api/jobs/:id
+```
+
+## Live Demo
+
+Frontend:
+[Netlify URL]
+
+Backend:
+[Render URL]
 
 ## Future Improvements
 
-- Add backend using Node.js and Express
-- Add database storage
-- User authentication
-- Deploy online
+- User Authentication
+- Notes for Applications
+- Interview Tracking
+- Analytics Dashboard
+- Resume Upload Support
+
+## Author
+
+Bhoomika
